@@ -1,11 +1,11 @@
-package org.espier.note.service;
+package org.espier.note7.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.Note;
-import org.espier.note.widget.NoteWidget;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.Note;
+import org.espier.note7.widget.NoteWidget;
 
 import android.app.Service;
 import android.appwidget.AppWidgetManager;

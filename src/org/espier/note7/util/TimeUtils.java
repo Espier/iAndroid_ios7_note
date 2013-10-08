@@ -1,4 +1,4 @@
-package org.espier.note.util;
+package org.espier.note7.util;
 
 
 import java.text.ParseException;

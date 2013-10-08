@@ -1,4 +1,4 @@
-package org.espier.note;
+package org.espier.note7;
 
 import android.app.Application;
 

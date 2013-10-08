@@ -1,15 +1,15 @@
-package org.espier.note.activity;
+package org.espier.note7.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.espier.note.R;
-import org.espier.note.adapter.NoteAdapter;
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.Note;
-import org.espier.note.view.MyListView;
-import org.espier.note.view.UINavigation;
-import org.espier.note.view.MyListView.OnRefreshListener;
+import org.espier.note7.R;
+import org.espier.note7.adapter.NoteAdapter;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.Note;
+import org.espier.note7.view.MyListView;
+import org.espier.note7.view.UINavigation;
+import org.espier.note7.view.MyListView.OnRefreshListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;

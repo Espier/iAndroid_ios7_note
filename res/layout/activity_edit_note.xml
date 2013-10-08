@@ -9,12 +9,12 @@
         android:layout_height="match_parent"
 		android:orientation="vertical"
         >
-    	<org.espier.note.view.UINavigation 
+    	<org.espier.note7.view.UINavigation 
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-    <org.espier.note.view.MyLinearLayout 
+    <org.espier.note7.view.MyLinearLayout 
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -57,7 +57,7 @@
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
-    <org.espier.note.view.LinedEditText
+    <org.espier.note7.view.LinedEditText
    	    android:id="@+id/let_content"
    	    android:layout_width="match_parent"
    	    android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
    	    android:background="@null"
    	    android:textColor="@color/tv_content"
    	    />
-    </org.espier.note.view.MyLinearLayout >
+    </org.espier.note7.view.MyLinearLayout >
     </LinearLayout>
   
     <LinearLayout 

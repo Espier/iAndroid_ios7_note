@@ -1,10 +1,10 @@
-package org.espier.note.db;
+package org.espier.note7.db;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.espier.note.model.Note;
-import org.espier.note.model.NoteCP;
+import org.espier.note7.model.Note;
+import org.espier.note7.model.NoteCP;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package org.espier.note.model;
+package org.espier.note7.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

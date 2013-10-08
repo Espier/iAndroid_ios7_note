@@ -1,10 +1,10 @@
-package org.espier.note.activity;
+package org.espier.note7.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.espier.note.adapter.NoteEditAdapter;
-import org.espier.note.model.Note;
+import org.espier.note7.adapter.NoteEditAdapter;
+import org.espier.note7.model.Note;
 
 import android.os.Bundle;
 

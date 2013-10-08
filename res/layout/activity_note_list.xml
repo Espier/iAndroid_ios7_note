@@ -10,12 +10,12 @@
        android:layout_height="match_parent"
        android:orientation="vertical"
        >
-	    <org.espier.note.view.UINavigation 
+	    <org.espier.note7.view.UINavigation 
 	        android:id="@+id/navigation"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        />
-		<org.espier.note.view.MyListView
+		<org.espier.note7.view.MyListView
 		    android:id="@+id/listView"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"

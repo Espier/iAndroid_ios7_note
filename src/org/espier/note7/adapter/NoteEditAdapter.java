@@ -1,17 +1,17 @@
-package org.espier.note.adapter;
+package org.espier.note7.adapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.espier.note.R;
-import org.espier.note.activity.NoteListActivity;
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.Note;
-import org.espier.note.util.TimeUtils;
-import org.espier.note.view.LinedEditText;
-import org.espier.note.view.MyLinearLayout;
-import org.espier.note.view.UINavigation;
+import org.espier.note7.R;
+import org.espier.note7.activity.NoteListActivity;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.Note;
+import org.espier.note7.util.TimeUtils;
+import org.espier.note7.view.LinedEditText;
+import org.espier.note7.view.MyLinearLayout;
+import org.espier.note7.view.UINavigation;
 
 import android.app.Activity;
 import android.app.AlertDialog;

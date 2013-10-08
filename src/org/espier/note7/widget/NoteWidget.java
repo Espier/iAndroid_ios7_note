@@ -1,11 +1,11 @@
-package org.espier.note.widget;
+package org.espier.note7.widget;
 
 import java.util.List;
 
-import org.espier.note.R;
-import org.espier.note.activity.EditNoteActivity;
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.Note;
+import org.espier.note7.R;
+import org.espier.note7.activity.EditNoteActivity;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.Note;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;

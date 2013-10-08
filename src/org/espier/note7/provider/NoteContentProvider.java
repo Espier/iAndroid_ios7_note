@@ -1,9 +1,9 @@
-package org.espier.note.provider;
+package org.espier.note7.provider;
 
 import java.util.HashMap;
 
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.NoteCP;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.NoteCP;
 
 import android.app.SearchManager;
 import android.content.ContentProvider;

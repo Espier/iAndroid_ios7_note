@@ -1,4 +1,4 @@
-package org.espier.note.view;
+package org.espier.note7.view;
 
 import android.app.Activity;
 import android.content.Context;

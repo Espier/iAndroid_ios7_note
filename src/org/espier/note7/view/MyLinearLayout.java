@@ -1,6 +1,6 @@
-package org.espier.note.view;
+package org.espier.note7.view;
 
-import org.espier.note.R;
+import org.espier.note7.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

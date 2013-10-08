@@ -1,4 +1,4 @@
-package org.espier.note.widget;
+package org.espier.note7.widget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;

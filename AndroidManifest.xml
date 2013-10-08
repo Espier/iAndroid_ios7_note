@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.espier.note"
+    package="org.espier.note7"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.espier.note.activity.NoteListActivity"
+            android:name="org.espier.note7.activity.NoteListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
                 android:resource="@xml/searchable" />
         </activity>
            <!--  <activity
-            android:name="org.espier.note.activity.TestProviderActivity"
+            android:name="org.espier.note7.activity.TestProviderActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>  -->
         <!-- <activity
-            android:name="org.espier.note.activity.DbTestActivity"
+            android:name="org.espier.note7.activity.DbTestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,17 +44,17 @@
             </intent-filter>
         </activity>  -->
         <activity 
-            android:name="org.espier.note.activity.EditNoteActivity"
+            android:name="org.espier.note7.activity.EditNoteActivity"
             >
         </activity>
          <activity 
-            android:name="org.espier.note.widget.WidgetActivity"
+            android:name="org.espier.note7.widget.WidgetActivity"
             >
             <intent-filter>  
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />  
             </intent-filter> 
         </activity>
-        <receiver android:name="org.espier.note.widget.NoteWidget">  
+        <receiver android:name="org.espier.note7.widget.NoteWidget">  
             <intent-filter>  
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="org.espiser.inotes.weidgt.up"/>
@@ -65,14 +65,14 @@
                 android:resource="@xml/note_wiget" />  
         </receiver>
         <provider 
-            android:name="org.espier.note.provider.NoteContentProvider"
-            android:authorities="org.espier.note" 
+            android:name="org.espier.note7.provider.NoteContentProvider"
+            android:authorities="org.espier.note7" 
             >
         </provider>
-        <service android:name="org.espier.note.service.NoteService"></service>
+        <service android:name="org.espier.note7.service.NoteService"></service>
         <meta-data 
             android:name="android.app.default_searchable" 
-            android:value="org.espier.note.activity.NoteListActivity" /> 
+            android:value="org.espier.note7.activity.NoteListActivity" /> 
     </application>
 
 </manifest>

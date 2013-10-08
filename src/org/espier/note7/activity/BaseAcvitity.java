@@ -1,4 +1,4 @@
-package org.espier.note.activity;
+package org.espier.note7.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,15 +1,15 @@
-package org.espier.note.adapter;
+package org.espier.note7.adapter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.espier.note.R;
-import org.espier.note.activity.EditNoteActivity;
-import org.espier.note.activity.NoteListActivity;
-import org.espier.note.db.DatabaseHelper;
-import org.espier.note.model.Note;
-import org.espier.note.util.TimeUtils;
+import org.espier.note7.R;
+import org.espier.note7.activity.EditNoteActivity;
+import org.espier.note7.activity.NoteListActivity;
+import org.espier.note7.db.DatabaseHelper;
+import org.espier.note7.model.Note;
+import org.espier.note7.util.TimeUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import android.app.Activity;
