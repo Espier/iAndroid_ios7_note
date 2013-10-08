@@ -2,7 +2,7 @@ package org.espier.note.widget;
 
 import java.util.List;
 
-import org.espier.inotes.R;
+import org.espier.note.R;
 import org.espier.note.activity.EditNoteActivity;
 import org.espier.note.db.DatabaseHelper;
 import org.espier.note.model.Note;

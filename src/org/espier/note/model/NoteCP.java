@@ -17,7 +17,7 @@ public class NoteCP {
 			+ " INTEGER PRIMARY KEY autoincrement," + NOTE_CONTENT
 			+ " VARCHAR," + NOTE_CREATE_TIME + " VARCHAR" + ");";
 
-	public static final String AUTOHORITY = "org.espier.inotes";
+	public static final String AUTOHORITY = "org.espier.note";
 	public static final int ITEM = 1;
 	public static final int ITEM_ID = 2;
 

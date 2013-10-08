@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.espier.inotes.R;
+import org.espier.note.R;
 import org.espier.note.activity.EditNoteActivity;
 import org.espier.note.activity.NoteListActivity;
 import org.espier.note.db.DatabaseHelper;

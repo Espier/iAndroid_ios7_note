@@ -3,7 +3,7 @@ package org.espier.note.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.espier.inotes.R;
+import org.espier.note.R;
 import org.espier.note.adapter.NoteAdapter;
 import org.espier.note.db.DatabaseHelper;
 import org.espier.note.model.Note;

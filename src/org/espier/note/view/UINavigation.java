@@ -1,6 +1,6 @@
 package org.espier.note.view;
 
-import org.espier.inotes.R;
+import org.espier.note.R;
 
 import android.content.Context;
 import android.util.AttributeSet;
