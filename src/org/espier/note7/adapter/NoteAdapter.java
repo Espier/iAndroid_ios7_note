@@ -20,9 +20,11 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -101,6 +103,7 @@ public class NoteAdapter extends BaseAdapter {
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 			holder.tvContent.setLayoutParams(params);
+			holder.tvContent.setGravity(Gravity.CENTER);
 			holder.tvTime.setVisibility(View.GONE);
 			holder.ivArrow.setVisibility(View.GONE);
 			holder.ivArrow.setVisibility(View.GONE);
@@ -167,16 +170,18 @@ public class NoteAdapter extends BaseAdapter {
 		// return true;
 		// }
 		// });
+		if (!isNull) {
+			convertView.setOnTouchListener(new OnTouchListener() {
 
-		convertView.setOnTouchListener(new OnTouchListener() {
+				@Override
+				public boolean onTouch(View view, MotionEvent ev) {
+					// TODO Auto-generated method stub
+					touchHolder = (ViewHolder) view.getTag();
+					return detector.onTouchEvent(ev);
+				}
+			});
+		}
 
-			@Override
-			public boolean onTouch(View view, MotionEvent ev) {
-				// TODO Auto-generated method stub
-				touchHolder = (ViewHolder) view.getTag();
-				return detector.onTouchEvent(ev);
-			}
-		});
 		// String time=items.get(position).getCreateTime().substring(0, 10);
 		return convertView;
 	}
@@ -218,6 +223,20 @@ public class NoteAdapter extends BaseAdapter {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onFling");
 			touchHolder.tvDelete.setVisibility(View.VISIBLE);
+			touchHolder.tvDelete.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					databaseHelper.deleteNoteById(items.get(
+							touchHolder.position).getId());
+					items.remove(touchHolder.position);
+					if (items.size() == 0 || items == null) {
+						isNull = true;
+					}
+					notifyDataSetChanged();
+				}
+			});
 			return true;
 		}
 

@@ -128,7 +128,7 @@ public class NoteWidget extends AppWidgetProvider {
 			if (null != notes && notes.size() > 0) {
 				note = notes.get(i);
 			} else {
-				note = new Note(0, "无备忘录", "");
+				note = new Note(0, "无备忘录", 0, "");
 			}
 
 			views.setImageViewResource(R.id.iv_widget_up,

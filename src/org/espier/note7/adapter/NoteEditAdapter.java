@@ -8,6 +8,7 @@ import org.espier.note7.R;
 import org.espier.note7.activity.NoteListActivity;
 import org.espier.note7.db.DatabaseHelper;
 import org.espier.note7.model.Note;
+import org.espier.note7.util.ColorsUtils;
 import org.espier.note7.util.TimeUtils;
 import org.espier.note7.view.LinedEditText;
 import org.espier.note7.view.MyLinearLayout;
@@ -42,7 +43,7 @@ public class NoteEditAdapter extends BaseAdapter {
 	private FlipViewController controller;
 	private DatabaseHelper databaseHelper;
 	private Animation animation;
-
+	private int selectColor = 0;
 	public NoteEditAdapter(Context context, List<Note> items) {
 		this.items = items;
 		this.context = context;
@@ -146,6 +147,11 @@ public class NoteEditAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+			if (!holder.llContainer.isShow) {
+				holder.llHeader.setPadding(0, -1 * 59, 0, 0);
+			} else {
+				holder.llHeader.setPadding(0, 0, 0, 0);
+			}
 			// System.out.println("===holder.llContainer.isShow111="
 			// + holder.llHeader.isShown());
 			// holder.llHeader.setPadding(0, -1 * holder.llHeader.getHeight(),
@@ -161,6 +167,8 @@ public class NoteEditAdapter extends BaseAdapter {
 			// holder.tvReadableTime.setText(prettyTime.format(new Date()));
 			// // String dateStr = DateFormat.getDateInstance(DateFormat.FULL)
 			// // .format(new Date());
+			holder.ivAction.setVisibility(View.INVISIBLE);
+			holder.ivRemove.setVisibility(View.INVISIBLE);
 			Date date = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
 					"yyyy年MM月dd日 HH:mm");
@@ -182,6 +190,42 @@ public class NoteEditAdapter extends BaseAdapter {
 			// holder.tvTime.setText(date.getHours() + ":" + date.getMinutes());
 			System.out.println("date===" + date.getYear());
 			holder.tvDate.setText(formatter.format(date));
+			if (items.get(position).getColor() == ColorsUtils.COLOR_BROWN) {
+				holder.rbBrown.setChecked(true);
+				selectColor = ColorsUtils.COLOR_BROWN;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_brown));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_GREEN) {
+				holder.rbGreen.setChecked(true);
+				selectColor = ColorsUtils.COLOR_GREEN;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_green));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_BLUE) {
+				holder.rbBlue.setChecked(true);
+				selectColor = ColorsUtils.COLOR_BLUE;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_blue));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_BLACK) {
+				holder.rbBlack.setChecked(true);
+				selectColor = ColorsUtils.COLOR_BLACK;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_black));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_PURPLE) {
+				holder.rbPurple.setChecked(true);
+				selectColor = ColorsUtils.COLOR_PURPLE;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_purple));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_RED) {
+				holder.rbRed.setChecked(true);
+				selectColor = ColorsUtils.COLOR_RED;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_red));
+			} else if (items.get(position).getColor() == ColorsUtils.COLOR_ORANGE) {
+				holder.rbOrange.setChecked(true);
+				selectColor = ColorsUtils.COLOR_ORANGE;
+				holder.etContent.setTextColor(context.getResources()
+						.getColorStateList(R.color.text_orange));
+			}
 		}
 		holder.ivRight.setOnClickListener(new OnClickListener() {
 
@@ -190,9 +234,17 @@ public class NoteEditAdapter extends BaseAdapter {
 				// TODO Auto-generated method stub
 				String date = TimeUtils.getSimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss", new Date());
-				Note note = new Note(1, holder.etContent.getText().toString(),
-						date);
-				databaseHelper.insertNote(note);
+				if (items == null) {
+					Note note = new Note(1, holder.etContent.getText()
+							.toString(), selectColor, date);
+					databaseHelper.insertNote(note);
+				} else {
+					Note note = items.get(position);
+					note.setColor(selectColor);
+					note.setContent(holder.etContent.getText().toString());
+					note.setCreateTime(date);
+					databaseHelper.updateNoteById(note);
+				}
 				Intent intent = new Intent(context, NoteListActivity.class);
 				((Activity) context).setResult(1, intent);
 				((Activity) context).finish();
@@ -230,30 +282,37 @@ public class NoteEditAdapter extends BaseAdapter {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_brown));
+							selectColor = ColorsUtils.COLOR_BROWN;
 						} else if (checkedId == holder.rbGreen.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_green));
+							selectColor = ColorsUtils.COLOR_GREEN;
 						} else if (checkedId == holder.rbBlue.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_blue));
+							selectColor = ColorsUtils.COLOR_BLUE;
 						} else if (checkedId == holder.rbBlack.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_black));
+							selectColor = ColorsUtils.COLOR_BLACK;
 						} else if (checkedId == holder.rbPurple.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_purple));
+							selectColor = ColorsUtils.COLOR_PURPLE;
 						} else if (checkedId == holder.rbRed.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_red));
+							selectColor = ColorsUtils.COLOR_RED;
 						} else if (checkedId == holder.rbOrange.getId()) {
 							holder.etContent.setTextColor(context
 									.getResources().getColorStateList(
 											R.color.text_orange));
+							selectColor = ColorsUtils.COLOR_ORANGE;
 						}
 					}
 

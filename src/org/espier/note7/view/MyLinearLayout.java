@@ -1,5 +1,6 @@
 package org.espier.note7.view;
 
+
 import org.espier.note7.R;
 
 import android.content.Context;
@@ -76,7 +77,9 @@ public class MyLinearLayout extends LinearLayout {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
-
+		if (isShow && state == REFRESHING) {
+			state = DONE;
+		}
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			System.out.println("down===========");
@@ -211,7 +214,7 @@ public class MyLinearLayout extends LinearLayout {
 			break;
 		case DONE:
 			llHeader.setPadding(0, -1 * headContentHeight, 0, 0);
-
+			isShow = false;
 			Log.v("@@@@@@", "DONE 这是第  " + i++ + "步" + "已经加载完毕- DONE ");
 			break;
 		}

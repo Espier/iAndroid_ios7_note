@@ -8,8 +8,8 @@ import org.espier.note7.adapter.NoteAdapter;
 import org.espier.note7.db.DatabaseHelper;
 import org.espier.note7.model.Note;
 import org.espier.note7.view.MyListView;
-import org.espier.note7.view.UINavigation;
 import org.espier.note7.view.MyListView.OnRefreshListener;
+import org.espier.note7.view.UINavigation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -229,9 +229,9 @@ public class NoteListActivity extends BaseAcvitity {
 			for (int i = 0; i < 10; i++) {
 				Note note = null;
 				if (i == 2) {
-					note = new Note(3, "无备忘录", "");
+					note = new Note(3, "无备忘录", 0, "");
 				} else {
-					note = new Note(i, "", "");
+					note = new Note(i, "", 0, "");
 				}
 				items.add(note);
 			}

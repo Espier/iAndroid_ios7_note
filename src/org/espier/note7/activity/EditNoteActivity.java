@@ -31,8 +31,8 @@ public class EditNoteActivity extends BaseAcvitity {
 		flipView = new FlipViewController(this, FlipViewController.HORIZONTAL);
 		adapter = new NoteEditAdapter(this, items);
 		adapter.setController(flipView);
-		flipView.setAdapter(adapter);
-		flipView.setSelection(index);
+		flipView.setAdapter(adapter, index);
+		// flipView.setSelection(index);
 		setContentView(flipView);
 	}
 

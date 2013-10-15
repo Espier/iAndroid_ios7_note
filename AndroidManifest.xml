@@ -28,7 +28,7 @@
                 android:resource="@xml/searchable" />
         </activity>
            <!--  <activity
-            android:name="org.espier.note7.activity.TestProviderActivity"
+            android:name="org.espier.inotes.activity.TestProviderActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>  -->
         <!-- <activity
-            android:name="org.espier.note7.activity.DbTestActivity"
+            android:name="org.espier.inotes.activity.DbTestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,13 +66,13 @@
         </receiver>
         <provider 
             android:name="org.espier.note7.provider.NoteContentProvider"
-            android:authorities="org.espier.note7" 
+            android:authorities="org.espier.note" 
             >
         </provider>
         <service android:name="org.espier.note7.service.NoteService"></service>
         <meta-data 
             android:name="android.app.default_searchable" 
-            android:value="org.espier.note7.activity.NoteListActivity" /> 
+            android:value="org.espier.inotes.activity.NoteListActivity" /> 
     </application>
 
 </manifest>
