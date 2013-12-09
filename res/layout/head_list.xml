@@ -21,8 +21,10 @@
 	        android:layout_gravity="center_vertical"
 	        android:layout_marginLeft="3dp"
 	        android:layout_marginRight="3dp"
+	        android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
 	        android:background="@drawable/search_bg"
-	        android:hint="Search" />
+	        android:hint="@string/search_hint" />
 
 	</LinearLayout>
 

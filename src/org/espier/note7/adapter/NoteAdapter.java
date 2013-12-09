@@ -6,16 +6,13 @@ import java.util.List;
 
 import org.espier.note7.R;
 import org.espier.note7.activity.EditNoteActivity;
-import org.espier.note7.activity.NoteListActivity;
 import org.espier.note7.db.DatabaseHelper;
 import org.espier.note7.model.Note;
 import org.espier.note7.util.TimeUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.view.GestureDetector;
@@ -243,37 +240,39 @@ public class NoteAdapter extends BaseAdapter {
 		@Override
 		public void onLongPress(MotionEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("gesture===onLongPress");
-			CharSequence[] alertItems = { "删除", "取消" };
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setItems(alertItems, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					if (which == 0) {
-						System.out.println("id=="
-								+ items.get(touchHolder.position).getId());
-						boolean delete = databaseHelper.deleteNoteById(items
-								.get(touchHolder.position).getId());
-						// System.out.println("position=="+position+","+"delete=="+delete);
-						items.remove(touchHolder.position);
-						if (null == items || items.size() == 0) {
-							isNull = true;
-							items = ((NoteListActivity) context).getData();
-							((NoteListActivity) context).adapter = new NoteAdapter(
-									context, items, isNull);
-							((NoteListActivity) context).listView
-									.setAdapter(((NoteListActivity) context).adapter);
-						}
-						notifyDataSetChanged();
-					} else if (which == 1) {
-
-					}
-				}
-			});
-			builder.setTitle("确定要删除吗？");
-			builder.show();
+			// System.out.println("gesture===onLongPress");
+			// CharSequence[] alertItems = { "删除", "取消" };
+			// AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			// builder.setItems(alertItems, new
+			// DialogInterface.OnClickListener() {
+			//
+			// @Override
+			// public void onClick(DialogInterface dialog, int which) {
+			// // TODO Auto-generated method stub
+			// if (which == 0) {
+			// System.out.println("id=="
+			// + items.get(touchHolder.position).getId());
+			// boolean delete = databaseHelper.deleteNoteById(items
+			// .get(touchHolder.position).getId());
+			// //
+			// System.out.println("position=="+position+","+"delete=="+delete);
+			// items.remove(touchHolder.position);
+			// if (null == items || items.size() == 0) {
+			// isNull = true;
+			// items = ((NoteListActivity) context).getData();
+			// ((NoteListActivity) context).adapter = new NoteAdapter(
+			// context, items, isNull);
+			// ((NoteListActivity) context).listView
+			// .setAdapter(((NoteListActivity) context).adapter);
+			// }
+			// notifyDataSetChanged();
+			// } else if (which == 1) {
+			//
+			// }
+			// }
+			// });
+			// builder.setTitle("确定要删除吗？");
+			// builder.show();
 			super.onLongPress(e);
 		}
 

@@ -12,7 +12,6 @@ import org.espier.note7.view.MyListView.OnRefreshListener;
 import org.espier.note7.view.UINavigation;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,7 +35,7 @@ import android.widget.TextView;
 
 public class NoteListActivity extends BaseAcvitity {
 	private UINavigation navigation;
-	private TextView tvRight;
+	private TextView tvRight, tvCancel;
 	private LinearLayout llLeft;
 	public MyListView listView;
 	private DatabaseHelper databaseHelper;
@@ -69,8 +68,21 @@ public class NoteListActivity extends BaseAcvitity {
 					etSearch.setVisibility(View.INVISIBLE);
 					navigation.setVisibility(View.GONE);
 					baseDialog = getDialog(NoteListActivity.this);
-					etDialogSearch.setHint("Search");
+					etDialogSearch.setHint(getResources().getString(R.string.search_hint));
 					etDialogSearch.findFocus();
+					tvCancel.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							if (navigation.getVisibility() == View.GONE
+									|| etSearch.getVisibility() == View.INVISIBLE) {
+								navigation.setVisibility(View.VISIBLE);
+								etSearch.setVisibility(View.VISIBLE);
+								baseDialog.dismiss();
+							}
+						}
+					});
 					etDialogSearch.addTextChangedListener(new TextWatcher() {
 
 						@Override
@@ -174,38 +186,39 @@ public class NoteListActivity extends BaseAcvitity {
 				public boolean onItemLongClick(AdapterView<?> parent,
 						View view, final int position, long id) {
 					// TODO Auto-generated method stub
-					CharSequence[] alertItems = { "删除", "取消" };
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							NoteListActivity.this);
-					builder.setItems(alertItems,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									if (which == 0) {
-										System.out.println("postion=="
-												+ position);
-										System.out.println("id=="
-												+ items.get(position - 1)
-														.getId());
-										boolean delete = databaseHelper
-												.deleteNoteById(items.get(
-														position - 1).getId());
-										// System.out.println("position=="+position+","+"delete=="+delete);
-										items = getData();
-										adapter = new NoteAdapter(
-												NoteListActivity.this, items,
-												isNull);
-										listView.setAdapter(adapter);
-									} else if (which == 1) {
-
-									}
-								}
-							});
-					builder.setTitle("确定要删除吗？");
-					builder.show();
+					// CharSequence[] alertItems = { "删除", "取消" };
+					// AlertDialog.Builder builder = new AlertDialog.Builder(
+					// NoteListActivity.this);
+					// builder.setItems(alertItems,
+					// new DialogInterface.OnClickListener() {
+					//
+					// @Override
+					// public void onClick(DialogInterface dialog,
+					// int which) {
+					// // TODO Auto-generated method stub
+					// if (which == 0) {
+					// System.out.println("postion=="
+					// + position);
+					// System.out.println("id=="
+					// + items.get(position - 1)
+					// .getId());
+					// boolean delete = databaseHelper
+					// .deleteNoteById(items.get(
+					// position - 1).getId());
+					// //
+					// System.out.println("position=="+position+","+"delete=="+delete);
+					// items = getData();
+					// adapter = new NoteAdapter(
+					// NoteListActivity.this, items,
+					// isNull);
+					// listView.setAdapter(adapter);
+					// } else if (which == 1) {
+					//
+					// }
+					// }
+					// });
+					// builder.setTitle("确定要删除吗？");
+					// builder.show();
 					return false;
 				}
 
@@ -229,7 +242,8 @@ public class NoteListActivity extends BaseAcvitity {
 			for (int i = 0; i < 10; i++) {
 				Note note = null;
 				if (i == 2) {
-					note = new Note(3, "无备忘录", 0, "");
+					String no = getResources().getString(R.string.no_note);
+					note = new Note(3, no, 0, "");
 				} else {
 					note = new Note(i, "", 0, "");
 				}
@@ -255,6 +269,7 @@ public class NoteListActivity extends BaseAcvitity {
 		LinearLayout mLayout = (LinearLayout) mInflater.inflate(
 				R.layout.dialog_search, null);
 		etDialogSearch = (EditText) mLayout.findViewById(R.id.et_search);
+		tvCancel = (TextView) mLayout.findViewById(R.id.tv_cancel);
 		lvDialog = (ListView) mLayout.findViewById(R.id.lv_dialog);
 		lvDialog.setBackground(null);
 		baseDialog.getWindow().setContentView(mLayout, lp);

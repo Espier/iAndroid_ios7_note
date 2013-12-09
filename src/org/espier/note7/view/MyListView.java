@@ -149,8 +149,10 @@ public class MyListView extends ListView implements OnScrollListener {
 					startY = tempY;
 					// Log.v("@@@@@@", "ACTION_MOVE 这是第  "+i+++"步" +4);
 				}
-				if (state != REFRESHING && isRecored && state != LOADING) {
-					if (state == RELEASE_To_REFRESH) {
+//				if (state != REFRESHING && isRecored && state != LOADING) {
+//					if (state == RELEASE_To_REFRESH) {
+				if (true) {
+					if (true) {
 						setSelection(0);
 						if (((tempY - startY) / RATIO < headContentHeight)
 								&& (tempY - startY) > 0) {

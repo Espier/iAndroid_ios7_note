@@ -15,21 +15,28 @@ import org.espier.note7.view.MyLinearLayout;
 import org.espier.note7.view.UINavigation;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
@@ -322,30 +329,92 @@ public class NoteEditAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setTitle("提示");
-				builder.setMessage("确定删除吗？");
-				builder.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
+				// AlertDialog.Builder builder = new
+				// AlertDialog.Builder(context);
+				// builder.setTitle("提示");
+				// builder.setMessage("确定删除吗？");
+				// builder.setPositiveButton("确定",
+				// new DialogInterface.OnClickListener() {
+				//
+				// @Override
+				// public void onClick(DialogInterface arg0, int arg1) {
+				// // TODO Auto-generated method stub
+				// databaseHelper.deleteNoteById(items.get(
+				// position).getId());
+				// // animation = AnimationUtils.loadAnimation(
+				// // context, R.anim.anim_remove);
+				// // animation.setDuration(300);
+				// // holder.ivRomoveTop.startAnimation(animation);
+				// Intent intent = new Intent(context,
+				// NoteListActivity.class);
+				// ((Activity) context).setResult(1, intent);
+				// ((Activity) context).finish();
+				// }
+				// });
+				// builder.setNeutralButton("取消", null);
+				// builder.show();
+				//
+				View view = inflater.inflate(R.layout.popup_menu, null);
+				TextView tvDelete = (TextView) view
+						.findViewById(R.id.tv_delete);
+				TextView tvCancel = (TextView) view
+						.findViewById(R.id.tv_cancel);
+				RelativeLayout rl = (RelativeLayout) view
+						.findViewById(R.id.rl_popup_menu);
+				view.setFocusable(true);
+				view.setFocusableInTouchMode(true);
+				final PopupWindow popupWindow = new PopupWindow(view,
+						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+				popupWindow.setFocusable(true);
+				popupWindow.setBackgroundDrawable(new BitmapDrawable());
+				popupWindow.setAnimationStyle(R.style.AnimationDialog);
+				popupWindow.showAtLocation(holder.llContainer, Gravity.BOTTOM
+						| Gravity.CENTER_HORIZONTAL, 0, 0);
+				popupWindow.setOutsideTouchable(true);
+				view.setOnTouchListener(new OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						// TODO Auto-generated method stub
+						popupWindow.dismiss();
+						return true;
+					}
+				});
+				view.setOnKeyListener(new OnKeyListener() {
 
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-								// TODO Auto-generated method stub
-								databaseHelper.deleteNoteById(items.get(
-										position).getId());
-								// animation = AnimationUtils.loadAnimation(
-								// context, R.anim.anim_remove);
-								// animation.setDuration(300);
-								// holder.ivRomoveTop.startAnimation(animation);
-								Intent intent = new Intent(context,
-										NoteListActivity.class);
-								((Activity) context).setResult(1, intent);
-								((Activity) context).finish();
+					@Override
+					public boolean onKey(View v, int keyCode, KeyEvent event) {
+						// TODO Auto-generated method stub
+						System.out.println("==back");
+						if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+							if (popupWindow != null || popupWindow.isShowing()) {
+								popupWindow.dismiss();
 							}
-						});
-				builder.setNeutralButton("取消", null);
-				builder.show();
+						}
+						return false;
+					}
+				});
+				tvDelete.setOnClickListener(new OnClickListener() {
 
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						databaseHelper.deleteNoteById(items.get(position)
+								.getId());
+						Intent intent = new Intent(context,
+								NoteListActivity.class);
+						((Activity) context).setResult(1, intent);
+						((Activity) context).finish();
+					}
+				});
+				tvCancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						popupWindow.dismiss();
+					}
+				});
 			}
 		});
 		// String time=items.get(position).getCreateTime().substring(0, 10);
