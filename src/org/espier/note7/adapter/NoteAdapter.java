@@ -38,7 +38,8 @@ public class NoteAdapter extends BaseAdapter {
 	private int startX, endX;
 	private GestureDetector detector;
 	private DatabaseHelper databaseHelper;
-	private ViewHolder touchHolder;
+	private ViewHolder currentHolder;
+	private ViewHolder oldHolder;
 	public NoteAdapter(Context context, List<Note> items, boolean isNull) {
 		this.context = context;
 		this.items = items;
@@ -107,73 +108,19 @@ public class NoteAdapter extends BaseAdapter {
 		}
 
 		if (date != null) {
-			String time = prettyTime.format(date);
-			holder.tvTime.setText(time);
+			holder.tvTime.setText(TimeUtils.getReadableTime(items.get(position).getCreateTime(), context));
 		} else {
 			holder.tvTime.setText("");
 		}
 
-		// convertView.setOnTouchListener(new OnTouchListener() {
-		//
-		// @Override
-		// public boolean onTouch(View view, MotionEvent event) {
-		// // TODO Auto-generated method stub
-		// switch (event.getAction()) {
-		// case MotionEvent.ACTION_DOWN:
-		// System.out.println("===down");
-		// startX = (int) event.getX();
-		// break;
-		// case MotionEvent.ACTION_MOVE:
-		// System.out.println("===move");
-		// break;
-		// case MotionEvent.ACTION_UP:
-		// System.out.println("===up");
-		// endX = (int) event.getX();
-		// if (Math.abs(endX - startX) > 60) {
-		// if (holder.tvDelete.getVisibility() == view.VISIBLE) {
-		// holder.tvDelete.setVisibility(View.GONE);
-		// } else {
-		// holder.tvDelete.setVisibility(View.VISIBLE);
-		// holder.tvDelete
-		// .setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View view) {
-		// // TODO Auto-generated method stub
-		// databaseHelper.deleteNoteById(items
-		// .get(position).getId());
-		// items.remove(position);
-		// notifyDataSetChanged();
-		//
-		// }
-		// });
-		// }
-		//
-		// }
-		// if (Math.abs(endX - startX) < 5) {
-		// System.out.println("===onclick");
-		// Intent intent = new Intent(context,
-		// EditNoteActivity.class);
-		// intent.putExtra("note", items.get(position));
-		// intent.putParcelableArrayListExtra("notes",
-		// (ArrayList<? extends Parcelable>) items);
-		// intent.putExtra("index", position);
-		// ((Activity) context).startActivity(intent);
-		// }
-		// break;
-		// default:
-		// break;
-		// }
-		// return true;
-		// }
-		// });
+		
 		if (!isNull) {
 			convertView.setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View view, MotionEvent ev) {
 					// TODO Auto-generated method stub
-					touchHolder = (ViewHolder) view.getTag();
+					currentHolder = (ViewHolder) view.getTag();
 					return detector.onTouchEvent(ev);
 				}
 			});
@@ -219,21 +166,7 @@ public class NoteAdapter extends BaseAdapter {
 				float velocityY) {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onFling");
-			touchHolder.tvDelete.setVisibility(View.VISIBLE);
-			touchHolder.tvDelete.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					databaseHelper.deleteNoteById(items.get(
-							touchHolder.position).getId());
-					items.remove(touchHolder.position);
-					if (items.size() == 0 || items == null) {
-						isNull = true;
-					}
-					notifyDataSetChanged();
-				}
-			});
+			
 			return true;
 		}
 
@@ -281,6 +214,34 @@ public class NoteAdapter extends BaseAdapter {
 				float distanceX, float distanceY) {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onScroll");
+			if (oldHolder!=null&&oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
+				oldHolder.tvDelete.setVisibility(View.GONE);
+			}
+			
+			if (oldHolder!=null&&oldHolder.position==currentHolder.position) {
+				if (oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
+					oldHolder.tvDelete.setVisibility(View.GONE);
+				}else {
+					oldHolder.tvDelete.setVisibility(View.VISIBLE);
+				}
+			}
+			
+			oldHolder=currentHolder;
+			
+			currentHolder.tvDelete.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					databaseHelper.deleteNoteById(items.get(
+							currentHolder.position).getId());
+					items.remove(currentHolder.position);
+					
+					if (items.size() == 0 || items == null) {
+						isNull = true;
+					}
+					notifyDataSetChanged();
+				}
+			});
 			return true;
 		}
 
@@ -303,10 +264,10 @@ public class NoteAdapter extends BaseAdapter {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onSingleTapUp");
 			Intent intent = new Intent(context, EditNoteActivity.class);
-			intent.putExtra("note", items.get(touchHolder.position));
+			intent.putExtra("note", items.get(currentHolder.position));
 			intent.putParcelableArrayListExtra("notes",
 					(ArrayList<? extends Parcelable>) items);
-			intent.putExtra("index", touchHolder.position);
+			intent.putExtra("index", currentHolder.position);
 			((Activity) context).startActivity(intent);
 			return true;
 		}

@@ -38,6 +38,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aphidmobile.flip.FlipViewController;
 
@@ -242,9 +243,16 @@ public class NoteEditAdapter extends BaseAdapter {
 				String date = TimeUtils.getSimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss", new Date());
 				if (items == null) {
-					Note note = new Note(1, holder.etContent.getText()
-							.toString(), selectColor, date);
-					databaseHelper.insertNote(note);
+					if (!holder.etContent.getText().toString().equals("")) {
+						Note note = new Note(1, holder.etContent.getText()
+								.toString(), selectColor, date);
+						databaseHelper.insertNote(note);
+						Intent intent = new Intent(context, NoteListActivity.class);
+						((Activity) context).setResult(1, intent);
+						((Activity) context).finish();
+					}else {
+						Toast.makeText(context, R.string.no_empty, Toast.LENGTH_SHORT).show();
+					}
 				} else {
 					Note note = items.get(position);
 					note.setColor(selectColor);
