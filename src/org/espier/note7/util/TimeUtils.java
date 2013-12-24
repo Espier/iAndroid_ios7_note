@@ -501,10 +501,10 @@ public class TimeUtils {
 				return outTime;
 			}else if (during<60*60*1000) {
 				String min=during/60/1000+"";
-				outTime=min+context.getResources().getText(R.string.minute);
+				outTime=min+" "+context.getResources().getText(R.string.minute);
 			}else if (during<24*60*60*1000) {
 				String hour=during/60/60/1000+"";
-				outTime=hour+context.getResources().getText(R.string.hour);
+				outTime=hour+" "+context.getResources().getText(R.string.hour);
 			}else if (during>24*60*60*1000) {
 				DateFormat df1= new SimpleDateFormat("yyyy.MM.dd");
 				outTime=df1.format(d1);

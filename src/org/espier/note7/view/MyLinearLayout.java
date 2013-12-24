@@ -93,6 +93,7 @@ public class MyLinearLayout extends LinearLayout {
 			System.out.println("up===========");
 			if (state != REFRESHING && state != LOADING) {
 				if (state == DONE) {
+					changeHeaderViewByState();
 				}
 				if (state == PULL_To_REFRESH) {
 					state = DONE;

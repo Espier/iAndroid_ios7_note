@@ -64,7 +64,8 @@
    	    android:textSize="20sp"
    	    android:paddingLeft="40dp"
    	    android:background="@null"
-   	    android:textColor="@color/tv_content"
+   	    android:textColor="@color/text_brown"
+   	     android:paddingBottom="70dp"
    	    />
     </org.espier.note7.view.MyLinearLayout >
     </LinearLayout>

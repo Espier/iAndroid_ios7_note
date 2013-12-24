@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.espier.note7.R;
 import org.espier.note7.activity.EditNoteActivity;
+import org.espier.note7.activity.NoteListActivity;
 import org.espier.note7.db.DatabaseHelper;
 import org.espier.note7.model.Note;
+import org.espier.note7.util.ColorsUtils;
 import org.espier.note7.util.TimeUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -93,6 +95,7 @@ public class NoteAdapter extends BaseAdapter {
 			holder.tvDelete.setVisibility(View.GONE);
 		}
 		holder.tvContent.setText(items.get(position).getContent());
+		holder.tvContent.setTextColor(context.getResources().getColorStateList(ColorsUtils.getColor(items.get(position).getColor())));
 		PrettyTime prettyTime = new PrettyTime();
 		Date date = TimeUtils.getDateByString("yyyy-MM-dd HH:mm:ss",
 				items.get(position).getCreateTime());
@@ -158,6 +161,16 @@ public class NoteAdapter extends BaseAdapter {
 		public boolean onDown(MotionEvent e) {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onDown");
+			if (null!=oldHolder) {
+				if (oldHolder.tvDelete.getVisibility()==View.VISIBLE||currentHolder.tvDelete.getVisibility()==View.VISIBLE) {
+					oldHolder.tvDelete.setVisibility(View.GONE);
+					currentHolder.tvDelete.setVisibility(View.GONE);
+					oldHolder.ivArrow.setVisibility(View.VISIBLE);
+					currentHolder.ivArrow.setVisibility(View.VISIBLE);
+					((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.new_note);
+					return false;
+				}
+			}
 			return true;
 		}
 
@@ -214,35 +227,78 @@ public class NoteAdapter extends BaseAdapter {
 				float distanceX, float distanceY) {
 			// TODO Auto-generated method stub
 			System.out.println("gesture===onScroll");
-			if (oldHolder!=null&&oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
-				oldHolder.tvDelete.setVisibility(View.GONE);
-			}
-			
-			if (oldHolder!=null&&oldHolder.position==currentHolder.position) {
-				if (oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
+			if (distanceX>30) {
+				if (oldHolder!=null&&oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
 					oldHolder.tvDelete.setVisibility(View.GONE);
-				}else {
-					oldHolder.tvDelete.setVisibility(View.VISIBLE);
+					oldHolder.ivArrow.setVisibility(View.INVISIBLE);
 				}
+				
+				if (oldHolder!=null&&oldHolder.position==currentHolder.position) {
+					if (oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
+						oldHolder.tvDelete.setVisibility(View.GONE);
+						oldHolder.ivArrow.setVisibility(View.VISIBLE);
+					}else {
+						oldHolder.tvDelete.setVisibility(View.VISIBLE);
+						oldHolder.ivArrow.setVisibility(View.INVISIBLE);
+						((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.cancel);
+						((NoteListActivity)NoteAdapter.this.context).tvRight.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								if (oldHolder.tvDelete.getVisibility()==View.VISIBLE||currentHolder.tvDelete.getVisibility()==View.VISIBLE) {
+									oldHolder.tvDelete.setVisibility(View.GONE);
+									currentHolder.tvDelete.setVisibility(View.GONE);
+									oldHolder.ivArrow.setVisibility(View.VISIBLE);
+									currentHolder.ivArrow.setVisibility(View.VISIBLE);
+									((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.new_note);
+									((NoteListActivity)NoteAdapter.this.context).tvRight.setOnClickListener(new OnClickListener() {
+										
+										@Override
+										public void onClick(View v) {
+											// TODO Auto-generated method stub
+											Intent intent = new Intent(NoteAdapter.this.context,
+													EditNoteActivity.class);
+											NoteAdapter.this.context.startActivity(intent);
+										}
+									});
+								}
+							}
+						});
+					} 
+				}
+				
+				oldHolder=currentHolder;
+				
+				currentHolder.tvDelete.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						databaseHelper.deleteNoteById(items.get(
+								currentHolder.position).getId());
+						items.remove(currentHolder.position);
+						String title = context.getResources().getString(R.string.title);
+						if (items.size() == 0 || items == null) {
+							isNull = true;
+						}
+						((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.new_note);
+						((NoteListActivity)NoteAdapter.this.context).tvRight.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent intent = new Intent(NoteAdapter.this.context,
+										EditNoteActivity.class);
+								NoteAdapter.this.context.startActivity(intent);
+							}
+						});
+						notifyDataSetChanged();
+					}
+				});
 			}
 			
-			oldHolder=currentHolder;
 			
-			currentHolder.tvDelete.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					databaseHelper.deleteNoteById(items.get(
-							currentHolder.position).getId());
-					items.remove(currentHolder.position);
-					
-					if (items.size() == 0 || items == null) {
-						isNull = true;
-					}
-					notifyDataSetChanged();
-				}
-			});
-			return true;
+			return super.onScroll(e1, e2, distanceX, distanceY);
 		}
 
 		@Override

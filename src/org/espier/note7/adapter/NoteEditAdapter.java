@@ -179,7 +179,7 @@ public class NoteEditAdapter extends BaseAdapter {
 			holder.ivRemove.setVisibility(View.INVISIBLE);
 			Date date = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy年MM月dd日 HH:mm");
+					"yyyy-MM-dd  HH:mm");
 			holder.tvDate.setText(formatter.format(date));
 //			holder.tvTime.setText(TimeUtils.getHour() + ":"
 //					+ TimeUtils.getTime());
@@ -192,7 +192,7 @@ public class NoteEditAdapter extends BaseAdapter {
 			// holder.tvReadableTime.setText(prettyTime.format(date));
 
 			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy年MM月dd日 HH:mm");
+					"yyyy-MM-dd  HH:mm");
 			// holder.tvDate.setText(date.getMonth() + 1 + "月" + date.getDate()
 			// + "日");
 			// holder.tvTime.setText(date.getHours() + ":" + date.getMinutes());

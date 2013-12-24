@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 public class NoteListActivity extends BaseAcvitity {
 	private UINavigation navigation;
-	private TextView tvRight, tvCancel;
+	public TextView tvRight, tvCancel;
 	private LinearLayout llLeft;
 	public MyListView listView;
 	private DatabaseHelper databaseHelper;
