@@ -80,15 +80,11 @@ public class NoteAdapter extends BaseAdapter {
 		if (convertView == null || convertView.getTag() == null) {
 			convertView = inflater.inflate(R.layout.item_note, null);
 			holder = new ViewHolder();
-			holder.tvContent = (TextView) convertView
-					.findViewById(R.id.tv_content);
+			holder.tvContent = (TextView) convertView.findViewById(R.id.tv_content);
 			holder.tvTime = (TextView) convertView.findViewById(R.id.tv_time);
-			holder.tvDelete = (TextView) convertView
-					.findViewById(R.id.tv_delete);
-			holder.ivArrow = (ImageView) convertView
-					.findViewById(R.id.iv_arrow);
+			holder.tvDelete = (TextView) convertView.findViewById(R.id.tv_delete);
+			holder.ivArrow = (ImageView) convertView.findViewById(R.id.iv_arrow);
 			holder.position = position;
-
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -168,6 +164,16 @@ public class NoteAdapter extends BaseAdapter {
 					oldHolder.ivArrow.setVisibility(View.VISIBLE);
 					currentHolder.ivArrow.setVisibility(View.VISIBLE);
 					((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.new_note);
+					((NoteListActivity)NoteAdapter.this.context).tvRight.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent intent = new Intent(NoteAdapter.this.context,
+									EditNoteActivity.class);
+							NoteAdapter.this.context.startActivity(intent);
+						}
+					});
 					return false;
 				}
 			}
@@ -230,7 +236,7 @@ public class NoteAdapter extends BaseAdapter {
 			if (distanceX>30) {
 				if (oldHolder!=null&&oldHolder.tvDelete.getVisibility()==View.VISIBLE) {
 					oldHolder.tvDelete.setVisibility(View.GONE);
-					oldHolder.ivArrow.setVisibility(View.INVISIBLE);
+					oldHolder.ivArrow.setVisibility(View.GONE);
 				}
 				
 				if (oldHolder!=null&&oldHolder.position==currentHolder.position) {
@@ -239,7 +245,7 @@ public class NoteAdapter extends BaseAdapter {
 						oldHolder.ivArrow.setVisibility(View.VISIBLE);
 					}else {
 						oldHolder.tvDelete.setVisibility(View.VISIBLE);
-						oldHolder.ivArrow.setVisibility(View.INVISIBLE);
+						oldHolder.ivArrow.setVisibility(View.GONE);
 						((NoteListActivity)NoteAdapter.this.context).tvRight.setText(R.string.cancel);
 						((NoteListActivity)NoteAdapter.this.context).tvRight.setOnClickListener(new OnClickListener() {
 							

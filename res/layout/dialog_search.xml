@@ -55,7 +55,6 @@
 	        android:layout_weight="1.5"
 	        android:text="@string/cancel"
 	        android:textColor="@color/tv_right"
-	        android:textStyle="bold"
 	        android:gravity="center"
 	        android:layout_gravity="center_vertical"
 	        android:layout_marginRight="5dp"

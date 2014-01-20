@@ -24,7 +24,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -36,7 +35,7 @@ import android.widget.TextView;
 public class NoteListActivity extends BaseAcvitity {
 	private UINavigation navigation;
 	public TextView tvRight, tvCancel;
-	private LinearLayout llLeft;
+	private LinearLayout llLeft,llSearch;
 	public MyListView listView;
 	private DatabaseHelper databaseHelper;
 	public NoteAdapter adapter, dialogAdapter;
@@ -58,73 +57,83 @@ public class NoteListActivity extends BaseAcvitity {
 		// tvRight.setText("    +    ");
 
 		listView = (MyListView) findViewById(R.id.listView);
-		etSearch = (EditText) findViewById(R.id.et_search);
-		etSearch.setOnFocusChangeListener(new OnFocusChangeListener() {
-
+		llSearch =(LinearLayout)findViewById(R.id.ll_head);
+		
+		llSearch.setOnClickListener(new OnClickListener() {
+			
 			@Override
-			public void onFocusChange(View view, boolean hasfocus) {
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (hasfocus) {
-					etSearch.setVisibility(View.INVISIBLE);
-					navigation.setVisibility(View.GONE);
-					baseDialog = getDialog(NoteListActivity.this);
-					etDialogSearch.setHint(getResources().getString(R.string.search_hint));
-					etDialogSearch.findFocus();
-					tvCancel.setOnClickListener(new OnClickListener() {
+				llSearch.setVisibility(View.INVISIBLE);
+				navigation.setVisibility(View.GONE);
+				baseDialog = getDialog(NoteListActivity.this);
+				etDialogSearch.setHint(getResources().getString(R.string.search_hint));
+				etDialogSearch.findFocus();
+				tvCancel.setOnClickListener(new OnClickListener() {
 
-						@Override
-						public void onClick(View v) {
-							// TODO Auto-generated method stub
-							if (navigation.getVisibility() == View.GONE
-									|| etSearch.getVisibility() == View.INVISIBLE) {
-								navigation.setVisibility(View.VISIBLE);
-								etSearch.setVisibility(View.VISIBLE);
-								baseDialog.dismiss();
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if (navigation.getVisibility() == View.GONE
+								|| llSearch.getVisibility() == View.INVISIBLE) {
+							navigation.setVisibility(View.VISIBLE);
+							llSearch.setVisibility(View.VISIBLE);
+							baseDialog.dismiss();
+						}
+					}
+				});
+				etDialogSearch.addTextChangedListener(new TextWatcher() {
+
+					@Override
+					public void onTextChanged(CharSequence s, int start,
+							int before, int count) {
+						// TODO Auto-generated method stub
+
+
+					}
+
+					@Override
+					public void beforeTextChanged(CharSequence s,
+							int start, int before, int count) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void afterTextChanged(Editable arg0) {
+						// TODO Auto-generated method stub
+						// lvDialog.setBackgroundResource(R.drawable.bg_body);
+						String keyWords = etDialogSearch.getText()
+								.toString();
+						if (!keyWords.equals("")) {
+							List<Note> notes = databaseHelper
+									.searchNotes(keyWords);
+							for (int i = 0; i < notes.size(); i++) {
+								System.out.println(notes.get(i).toString());
+								dialogAdapter = new NoteAdapter(
+										NoteListActivity.this, notes, false);
+								lvDialog.setAdapter(dialogAdapter);
 							}
 						}
-					});
-					etDialogSearch.addTextChangedListener(new TextWatcher() {
-
-						@Override
-						public void onTextChanged(CharSequence s, int start,
-								int before, int count) {
-							// TODO Auto-generated method stub
 
 
-						}
-
-						@Override
-						public void beforeTextChanged(CharSequence s,
-								int start, int before, int count) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void afterTextChanged(Editable arg0) {
-							// TODO Auto-generated method stub
-							// lvDialog.setBackgroundResource(R.drawable.bg_body);
-							String keyWords = etDialogSearch.getText()
-									.toString();
-							if (!keyWords.equals("")) {
-								List<Note> notes = databaseHelper
-										.searchNotes(keyWords);
-								for (int i = 0; i < notes.size(); i++) {
-									System.out.println(notes.get(i).toString());
-									dialogAdapter = new NoteAdapter(
-											NoteListActivity.this, notes, false);
-									lvDialog.setAdapter(dialogAdapter);
-								}
-							}
-
-
-						}
-					});
-
-				}
-
+					}
+				});
 			}
 		});
+//		etSearch = (EditText) findViewById(R.id.et_search);
+//		etSearch.setOnFocusChangeListener(new OnFocusChangeListener() {
+//
+//			@Override
+//			public void onFocusChange(View view, boolean hasfocus) {
+//				// TODO Auto-generated method stub
+//				if (hasfocus) {
+//					
+//
+//				}
+//
+//			}
+//		});
 
 		tvRight.setOnClickListener(new OnClickListener() {
 
@@ -291,9 +300,9 @@ public class NoteListActivity extends BaseAcvitity {
 				// TODO Auto-generated method stub
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 					if (navigation.getVisibility() == View.GONE
-							|| etSearch.getVisibility() == View.INVISIBLE) {
+							|| llSearch.getVisibility() == View.INVISIBLE) {
 						navigation.setVisibility(View.VISIBLE);
-						etSearch.setVisibility(View.VISIBLE);
+						llSearch.setVisibility(View.VISIBLE);
 						baseDialog.dismiss();
 					}
 					return true;

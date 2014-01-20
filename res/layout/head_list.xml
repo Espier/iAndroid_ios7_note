@@ -5,27 +5,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	
 	>
 	<LinearLayout 
 	    android:id="@+id/ll_head"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent" 
+		android:layout_height="45dp"
+	    android:background="@drawable/search_bg"
+	    android:gravity="center_horizontal"
 	    >
-
-	    <EditText
-	        android:id="@+id/et_search"
-	        android:layout_width="match_parent"
-	        android:layout_height="45dp"
-	        android:layout_gravity="center_vertical"
-	        android:layout_marginLeft="3dp"
-	        android:layout_marginRight="3dp"
-	        android:paddingLeft="10dp"
-		    android:paddingRight="10dp"
-	        android:background="@drawable/search_bg"
-	        android:hint="@string/search_hint" />
-
+		<ImageView 
+		    android:id="@+id/iv_search"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/search"
+		    android:layout_gravity="center"
+		    />
+		<TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/search_hint"
+		    android:layout_gravity="center"
+		    android:textSize="18sp"
+		    android:textColor="@color/tv_month_day"
+		    android:layout_marginLeft="4dp"
+		    />
 	</LinearLayout>
-
 </LinearLayout>

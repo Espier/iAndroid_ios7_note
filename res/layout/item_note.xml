@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" 
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     >
     <TextView 
         android:id="@+id/tv_content"
@@ -21,8 +18,15 @@
   		android:layout_centerVertical="true"
   		android:paddingLeft="10dp"
   		android:paddingRight="10dp"
+  		android:layout_marginTop="15dp"
+  		android:layout_marginBottom="15dp"
         />
-   
+   	<TextView 
+   	    android:id="@+id/tv_empty"
+   	    android:layout_height="wrap_content"
+   	    android:layout_width="wrap_content"
+   	    android:layout_alignParentRight="true"
+   	    />
     <ImageView 
         android:id="@+id/iv_arrow"
         android:layout_width="15dp"
@@ -30,20 +34,21 @@
         android:background="@drawable/item_list_arrow"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
         />
      <TextView 
         android:id="@+id/tv_delete"
         android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="3dp"
-        android:background="@drawable/btn_remove_selector"
+        android:layout_height="45dp"
+       
         android:layout_centerVertical="true"
         android:visibility="gone"
         android:text="@string/delete"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_toLeftOf="@id/iv_arrow"
+        android:layout_toLeftOf="@id/tv_empty"
+        android:background="@drawable/item_remove_selector"
         />
     <TextView 
         android:id="@+id/tv_time"
@@ -55,7 +60,7 @@
         android:textColor="@color/tv_content"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="30dp"
         />
  
 </RelativeLayout>
