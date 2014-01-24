@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:orientation="vertical" 
+    android:duplicateParentState="true"
     >
     <LinearLayout 
         android:id="@+id/ll_left"
@@ -10,12 +11,14 @@
         android:layout_height="45dp"
         android:gravity="center_vertical"
         android:visibility="visible"
+        android:duplicateParentState="true"
         >
         <ImageView 
             android:layout_width="16dp"
             android:layout_height="24dp"
-            android:src="@drawable/back"
+            android:src="@drawable/back_selector"
             android:layout_marginLeft="10dp"
+            android:duplicateParentState="true"
             />
         <TextView 
 	        android:id="@+id/tv_left"

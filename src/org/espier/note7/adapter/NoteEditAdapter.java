@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -143,6 +145,7 @@ public class NoteEditAdapter extends BaseAdapter implements OnClickListener{
 	                inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 	            }
 	        }, 500);
+	        
 	        Date date = new Date();
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
 			holder.tvDate.setText(formatter.format(date));
@@ -234,6 +237,37 @@ public class NoteEditAdapter extends BaseAdapter implements OnClickListener{
 					((Activity) context).startActivity(intent);
 				}
 			});
+			holder.ivAction.setSelected(true);
+	        holder.ivAction.setClickable(false);
+	        TextWatcher watcher=new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+						int after) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					// TODO Auto-generated method stub
+					String input=holder.etContent.getText().toString();
+					if (input.equals("")) {
+						holder.ivAction.setSelected(true);
+				        holder.ivAction.setClickable(false);
+					}else {
+						holder.ivAction.setSelected(false);
+				        holder.ivAction.setClickable(true);
+					}
+				}
+			};
+			holder.etContent.addTextChangedListener(watcher);
 			holder.ivRight.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -248,6 +282,7 @@ public class NoteEditAdapter extends BaseAdapter implements OnClickListener{
 			holder.tvRight.setVisibility(View.INVISIBLE);
 			holder.tvRight.setText(context.getResources().getString(R.string.done));
 			holder.etContent.setText(items.get(position).getContent());
+			holder.etContent.setFocusable(false);
 			Date date = TimeUtils.getDateByString("yyyy-MM-dd HH:mm:ss", items.get(position).getCreateTime());
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
 			holder.tvDate.setText(formatter.format(date));
@@ -275,6 +310,9 @@ public class NoteEditAdapter extends BaseAdapter implements OnClickListener{
 		             inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 		             if ( holder.tvRight.getVisibility()==View.INVISIBLE) {
 		            	 holder.tvRight.setVisibility(View.VISIBLE);
+		            	 holder.etContent.setFocusable(true);
+		            	 holder.etContent.requestFocus();
+		            	 holder.etContent.setFocusableInTouchMode(true);
 		             }
 		             
 				}

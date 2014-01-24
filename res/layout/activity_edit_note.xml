@@ -89,9 +89,9 @@
     	    >
 	       <ImageView 
 	           android:id="@+id/iv_action"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:src="@drawable/ic_action"
+	           android:layout_width="40dp"
+               android:layout_height="45dp"
+	           android:src="@drawable/action_share_selector"
 	           />
        </LinearLayout>
         <LinearLayout 
@@ -102,9 +102,9 @@
     	    >
 	        <ImageView 
 	           android:id="@+id/iv_remove"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:src="@drawable/ic_trash"
+	             android:layout_width="40dp"
+                android:layout_height="45dp"
+	           android:src="@drawable/action_remove_selector"
 	           />
        </LinearLayout>
        <LinearLayout 
@@ -115,9 +115,9 @@
            >
             <ImageView 
 	           android:id="@+id/iv_right"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:src="@drawable/ic_compose"
+	             android:layout_width="40dp"
+                android:layout_height="45dp"
+	           android:src="@drawable/action_write_selector"
 	           />
        </LinearLayout>
    </LinearLayout> 
